@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I'm Sorry, Hinata 💙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --lavender: #c3b1e1;
+      --deep-purple: #5a3e6b;
+      --blush: #f4c2c2;
+      --sky: #a8d8ea;
+      --cream: #fdf6f0;
+      --dark: #2b1e35;
+      --accent: #e88fa0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--dark);
+      font-family: 'Lato', sans-serif;
+      color: var(--cream);
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── Starfield ── */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle var(--d, 3s) ease-in-out infinite alternate;
+      opacity: var(--o, 0.6);
+    }
+    @keyframes twinkle { from { opacity: .1; } to { opacity: var(--o, .8); } }
+
+    /* ── Floating petals ── */
+    .petal {
+      position: fixed;
+      width: 10px; height: 10px;
+      border-radius: 50% 0;
+      background: var(--blush);
+      opacity: 0;
+      animation: fall var(--fd, 8s) linear var(--fd2, 0s) infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-20px) rotate(0deg); opacity: .7; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── Layout ── */
+    main {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    /* ── Header ── */
+    .hero {
+      text-align: center;
+      margin-bottom: 72px;
+      animation: fadeUp .9s ease both;
+    }
+    .hero .tag {
+      display: inline-block;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      border: 1px solid var(--lavender);
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      opacity: .85;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5.2rem);
+      line-height: 1.1;
+      color: var(--cream);
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--lavender);
+    }
+    .hero .sub {
+      margin-top: 18px;
+      font-size: 1.05rem;
+      color: var(--sky);
+      font-weight: 300;
+      letter-spacing: .03em;
+    }
+
+    /* ── Heart divider ── */
+    .divider {
+      text-align: center;
+      font-size: 1.6rem;
+      margin: 40px 0;
+      animation: heartbeat 1.4s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      14%      { transform: scale(1.25); }
+      28%      { transform: scale(1); }
+      42%      { transform: scale(1.15); }
+    }
+
+    /* ── Cards ── */
+    .cards {
+      display: grid;
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(195,177,225,.18);
+      border-radius: 18px;
+      padding: 28px 32px;
+      backdrop-filter: blur(6px);
+      animation: fadeUp .8s ease both;
+      transition: transform .3s, border-color .3s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(195,177,225,.55);
+    }
+    .card .emoji { font-size: 2rem; margin-bottom: 10px; display: block; }
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--lavender);
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: .97rem;
+      line-height: 1.75;
+      color: rgba(253,246,240,.75);
+      font-weight: 300;
+    }
+
+    /* staggered delays */
+    .card:nth-child(1) { animation-delay: .1s; }
+    .card:nth-child(2) { animation-delay: .22s; }
+    .card:nth-child(3) { animation-delay: .34s; }
+    .card:nth-child(4) { animation-delay: .46s; }
+    .card:nth-child(5) { animation-delay: .58s; }
+    .card:nth-child(6) { animation-delay: .70s; }
+    .card:nth-child(7) { animation-delay: .82s; }
+
+    /* ── Big letter ── */
+    .letter {
+      margin-top: 64px;
+      background: linear-gradient(145deg, rgba(195,177,225,.1), rgba(168,216,234,.07));
+      border: 1px solid rgba(195,177,225,.25);
+      border-radius: 22px;
+      padding: 48px 40px;
+      animation: fadeUp .9s .9s ease both;
+    }
+    .letter h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--lavender);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .letter p {
+      font-size: 1rem;
+      line-height: 2;
+      color: rgba(253,246,240,.82);
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .letter .sign {
+      margin-top: 32px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    /* ── Promise ribbon ── */
+    .promise {
+      margin-top: 56px;
+      text-align: center;
+      animation: fadeUp 1s 1.1s ease both;
+    }
+    .promise h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--sky);
+      margin-bottom: 28px;
+    }
+    .promises-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .pill {
+      background: rgba(168,216,234,.1);
+      border: 1px solid rgba(168,216,234,.3);
+      border-radius: 30px;
+      padding: 8px 20px;
+      font-size: .88rem;
+      color: var(--sky);
+      transition: background .3s;
+    }
+    .pill:hover { background: rgba(168,216,234,.22); }
+
+    /* ── Footer button ── */
+    .footer {
+      margin-top: 72px;
+      text-align: center;
+      animation: fadeUp 1s 1.3s ease both;
+    }
+    .btn {
+      display: inline-block;
+      padding: 16px 42px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--lavender), var(--accent));
+      color: var(--dark);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 6px 30px rgba(195,177,225,.35);
+    }
+    .btn:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(195,177,225,.55); }
+    .footer-note {
+      margin-top: 20px;
+      font-size: .82rem;
+      color: rgba(253,246,240,.35);
+      letter-spacing: .05em;
+    }
+
+    /* ── Forgiven screen ── */
+    #forgiven {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(43,30,53,.96);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px;
+    }
+    #forgiven.show { display: flex; animation: fadeIn .6s ease; }
+    #forgiven h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      color: var(--lavender);
+      margin-bottom: 16px;
+    }
+    #forgiven p { font-size: 1.1rem; color: var(--sky); font-weight: 300; margin-bottom: 40px; }
+    #forgiven .close-btn {
+      padding: 12px 36px;
+      border-radius: 40px;
+      border: 1px solid var(--lavender);
+      background: transparent;
+      color: var(--lavender);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    #forgiven .close-btn:hover { background: rgba(195,177,225,.15); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Petals -->
+<div id="petals"></div>
+
+<!-- Forgiven overlay -->
+<div id="forgiven">
+  <div style="font-size:4rem;margin-bottom:20px;">🌸</div>
+  <h2>Thank you, Hinata 💙</h2>
+  <p>You are my everything. I promise to never let you down again.</p>
+  <button class="close-btn" onclick="document.getElementById('forgiven').classList.remove('show')">Close ✕</button>
+</div>
+
+<main>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="tag">A heartfelt apology</div>
+    <h1>I'm so sorry,<br><em>Hinata.</em></h1>
+    <p class="sub">Every word here comes straight from the deepest part of my heart.</p>
+  </div>
+
+  <div class="divider">💜</div>
+
+  <!-- Apology cards -->
+  <div class="cards">
+
+    <div class="card">
+      <span class="emoji">😔</span>
+      <h2>For the times I made you feel unseen</h2>
+      <p>You deserved all my attention, every single time. Instead I let distractions steal the moments that should have been yours. I am truly, deeply sorry for every second you felt invisible to me.</p>
+    </div>
+
+    <div class="card">
+      <span class="emoji">🗣️</span>
+      <h2>For the harsh words I should have never said</h2>
+      <p>Words, once spoken, leave marks that linger long after silence returns. I chose wrong ones — and I wish with everything in me that I could take them back. You never deserved that tone, that coldness, those words.</p>
+    </div>
+
+    <div class="card">
+      <span class="emoji">⏳</span>
+      <h2>For the times I didn't show up for you</h2>
+      <p>When you needed me most, I wasn't always there. That failure haunts me. You gave me your trust, and I didn't protect it the way I should have. I'm sorry for every moment I left you alone when you needed a hand to hold.</p>
+    </div>
+
+    <div class="card">
+      <span class="emoji">💔</span>
+      <h2>For every tear I caused you</h2>
+      <p>Each tear on your face is a reminder of where I fell short. Knowing I was the reason behind your pain is something I carry every day. You are too precious, too beautiful inside and out, to ever be made to cry.</p>
+    </div>
+
+    <div class="card">
+      <span class="emoji">🤐</span>
+      <h2>For the times I went silent instead of talking</h2>
+      <p>Silence can hurt just as much as sharp words. When I shut down instead of opening up, you were left guessing and hurting in the dark. That wasn't fair to you. I should have chosen honesty and vulnerability every time.</p>
+    </div>
+
+    <div class="card">
+      <span class="emoji">🌧️</span>
+      <h2>For being your storm instead of your shelter</h2>
+      <p>You came to me for warmth and I sometimes brought cold. You came for calm and I brought chaos. I was supposed to be a safe place for you, and I am deeply sorry for the times I was the opposite of that.</p>
+    </div>
+
+    <div class="card">
+      <span class="emoji">🙏</span>
+      <h2>For everything I haven't named but you know</h2>
+      <p>You carry small hurts I may not even be aware of. For those unnamed moments — the subtle ones, the quiet ones that only you felt — I'm sorry too. All of it. Every single piece.</p>
+    </div>
+
+  </div>
+
+  <!-- Long letter -->
+  <div class="letter">
+    <h2>A letter for you, Hinata…</h2>
+    <p>If I could sit across from you right now, I would look you in the eyes — without rehearsed words, without excuses — and simply say: I am sorry. Not because it's easy to say, but because you deserve to hear it with your whole heart.</p>
+    <p>You are one of the rarest people I have ever known. The way you care, the way you feel things so deeply, the way you still choose kindness even when it isn't returned — that is extraordinary. And I did not always honor that the way I should have.</p>
+    <p>I don't want to be the person who takes you for granted. I don't want to be the chapter of your life you look back on with pain. I want to be better — for you, and because of you.</p>
+    <p>If you give me the chance, I will spend every day making sure you never have to question where you stand with me. You are loved, Hinata. More than these words could ever hold.</p>
+    <div class="sign">— Yours, always. 💙</div>
+  </div>
+
+  <!-- Promises -->
+  <div class="promise">
+    <h3>My promises to you 🤍</h3>
+    <div class="promises-list">
+      <span class="pill">🌙 Always listen to you</span>
+      <span class="pill">💬 Choose words with care</span>
+      <span class="pill">🤝 Be there when it matters</span>
+      <span class="pill">🛡️ Protect your heart</span>
+      <span class="pill">☀️ Be your calm, not your storm</span>
+      <span class="pill">📖 Be open and honest</span>
+      <span class="pill">🌸 Never make you feel small</span>
+      <span class="pill">💙 Love you the way you deserve</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <button class="btn" onclick="document.getElementById('forgiven').classList.add('show')">
+      I forgive you 💙
+    </button>
+    <p class="footer-note">tap the button if you're ready — no rush, take all the time you need.</p>
+  </div>
+
+</main>
+
+<script>
+  // Generate stars
+  const starContainer = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      width:${size}px;
+      height:${size}px;
+      --d:${(Math.random()*4+2).toFixed(1)}s;
+      --o:${(Math.random()*.7+.2).toFixed(2)};
+      animation-delay:${(Math.random()*5).toFixed(1)}s;
+    `;
+    starContainer.appendChild(s);
+  }
+
+  // Generate petals
+  const petalContainer = document.getElementById('petals');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const hue = Math.random() > .5 ? '#f4c2c2' : '#c3b1e1';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      background:${hue};
+      --fd:${(Math.random()*7+6).toFixed(1)}s;
+      --fd2:${(Math.random()*8).toFixed(1)}s;
+      width:${Math.random()*8+6}px;
+      height:${Math.random()*8+6}px;
+    `;
+    petalContainer.appendChild(p);
+  }
+</script>
+</body>
+</html>
